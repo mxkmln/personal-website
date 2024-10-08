@@ -1,0 +1,39 @@
+{
+    "characters": [
+      {
+        "id": 1,
+        "name": "Aang",
+        "show": "Avatar the last airbender",
+        "image": "/animeimages/Aang.jpg",
+        "description": "The first show to have a life bending impact on me. Zenned out at 20 when I met Aang"
+      },
+      {
+        "id": 2,
+        "name": "Naruto Uzumaki",
+        "show": "Naruto",
+        "image": "/animeimages/naruto.jpg",
+        "description": "A determined ninja with a dream to become the leader of his village."
+      },
+      {
+        "id": 3,
+        "name": "Kakashi Hatake",
+        "show": "Naruto",
+        "image": "/animeimages/Kakashi.jpg",
+        "description": "Only the coolest ninja to ever exist."
+      },
+      {
+        "id": 4,
+        "name": "Levi",
+        "show": "Attack on Titan",
+        "image": "/animeimages/Levi.jpg",
+        "description": "A genius and loyal soldier extremely well adept at aerial attack."
+      },
+      {
+        "id": 5,
+        "name": "Rengoku Sama",
+        "show": "Demon Slayer",
+        "image": "/animeimages/Rengoku.jpg",
+        "description": "Set your heart ablaze. Enough said"
+      }
+    ]
+  }
