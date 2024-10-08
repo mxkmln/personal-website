@@ -33,7 +33,7 @@ const nextConfig = {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config, { dev, isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -41,11 +41,26 @@ const nextConfig = {
         path: false,
       };
     }
-    // Add PostCSS loader to the webpack configuration
+    
     config.module.rules.push({
       test: /\.css$/,
-      use: ['postcss-loader'],
+      use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: {
+              plugins: [
+                'tailwindcss',
+                'autoprefixer',
+              ],
+            },
+          },
+        },
+      ],
     });
+
     return config;
   },
   experimental: {
