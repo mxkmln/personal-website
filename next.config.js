@@ -41,6 +41,11 @@ const nextConfig = {
         path: false,
       };
     }
+    // Add PostCSS loader to the webpack configuration
+    config.module.rules.push({
+      test: /\.css$/,
+      use: ['postcss-loader'],
+    });
     return config;
   },
   experimental: {

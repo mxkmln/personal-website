@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { X } from 'lucide-react'
-import SpotifySongGrid from '@/components/SpotifySongGrid'
 import dynamic from 'next/dynamic'
 
 const DynamicSpotifySongGrid = dynamic(() => import('@/components/SpotifySongGrid'), {
