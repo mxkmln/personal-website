@@ -1,12 +1,15 @@
-
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['i.scdn.co'],
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        port: '',
+        pathname: '/**',
+      },
       {
         protocol: 'https',
         hostname: 'www.google.com',
@@ -16,12 +19,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.scdn.co',
         port: '',
         pathname: '/**',
       },
@@ -44,29 +41,11 @@ const nextConfig = {
         path: false,
       };
     }
-    
-    config.module.rules.push({
-      test: /\.css$/,
-      use: [
-        'style-loader',
-        'css-loader',
-        {
-          loader: 'postcss-loader',
-          options: {
-            postcssOptions: {
-              plugins: [
-                'tailwindcss',
-                'autoprefixer',
-              ],
-            },
-          },
-        },
-      ],
-    });
-
     return config;
   },
   experimental: {
     serverComponentsExternalPackages: ['sharp', 'onnxruntime-node'],
   },
 }
+
+module.exports = nextConfig;

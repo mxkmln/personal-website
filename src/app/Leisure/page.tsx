@@ -45,6 +45,12 @@ export default function LeisurePage() {
     loadAnimeCharacters()
   }, [])
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    target.onerror = null;
+    target.src = '/placeholder.svg';
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 text-center">Leisure</h1>
@@ -91,11 +97,7 @@ export default function LeisurePage() {
                       alt={character.name}
                       fill
                       style={{ objectFit: 'cover' }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = '/placeholder.svg';
-                      }}
+                      onError={handleImageError}
                     />
                   </div>
                   <p className="text-center">{character.name}</p>
@@ -151,11 +153,7 @@ and when I was vindictive`}
                 alt={selectedCharacter.name}
                 fill
                 style={{ objectFit: 'cover' }}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = '/placeholder.svg';
-                }}
+                onError={handleImageError}
               />
             </div>
             <h3 className="text-xl font-bold mb-2">{selectedCharacter.name}</h3>
