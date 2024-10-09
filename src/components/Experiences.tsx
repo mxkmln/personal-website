@@ -28,7 +28,7 @@ export default function Experiences() {
         'Cultsport(D2C)IPO prep: Capability building and plan of action',
         'Product manager for in app hyperlocal social network',
         'Built product impact dashboard for tech team of ~200 folks',
-     'Tech talent branding: Linkedin, Tech blogs, Tech Careers Page'
+        'Tech talent branding: Linkedin, Tech blogs, Tech Careers Page'
       ]
     },
     {
@@ -81,8 +81,8 @@ export default function Experiences() {
     }
   }, [isMobile])
 
-  const handleMouseLeave = useCallback((e: React.MouseEvent) => {
-    if (!isMobile && expandedRef.current && !expandedRef.current.contains(e.relatedTarget as Node)) {
+  const handleMouseLeave = useCallback(() => {
+    if (!isMobile) {
       setExpandedIndex(null)
     }
   }, [isMobile])
@@ -97,6 +97,7 @@ export default function Experiences() {
             className="w-36 h-36 border rounded-lg transition-all duration-300 ease-in-out relative cursor-pointer m-2 flex flex-col items-center justify-center"
             onClick={() => handleExpand(index)}
             onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
           >
             <Image 
               src={exp.logo}
