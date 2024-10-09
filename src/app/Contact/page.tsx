@@ -11,7 +11,7 @@ export default function ContactPage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Contact</h1>
       <p className="mb-4">
-        For any work-related query or possible collaboration, you can drop a message via following DM links tagged to my profiles:
+        Up for any work-related chat, you can drop a message via following DM links tagged to my profiles:
       </p>
       
       <div className="flex space-x-4 mb-6">
@@ -30,7 +30,7 @@ export default function ContactPage() {
           <span className="sr-only">Discord DM</span>
         </a>
       </div>
-      <p> (I do not refer strangers to my prev orgs, please refrain messaging for that purpose :| )</p>
+      
     </div>
   )
 }

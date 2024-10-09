@@ -74,7 +74,7 @@ export default function LeisurePage() {
         <div>
           <div className="mb-12">
             <p className="mb-4">
-              Anime has been a significant source of inspiration in my life. Particularly drawn to compelling visual aesthetic and cathartic storylines. Their stories of overcoming obstacles and growing stronger have been a constant reminder that with hard work and dedication, I can achieve my goals.
+              Anime is a significant source of inspiration and entertainment. Drawn to compelling visual aesthetic and cathartic storylines. Their stories of overcoming obstacles and growing stronger have been a constant reminder that with hard work and dedication, I can achieve my goals.
             </p>
           </div>
 
@@ -133,7 +133,7 @@ and when I was vindictive`}
             </pre>
           </div>
 
-          <h2 className="text-2xl font-bold mb-6">Love to discover good music and great album art</h2>
+          <h2 className="text-2xl font-bold mb-6">Forever discovering good music and great album art</h2>
           <DynamicSpotifySongGrid />
         </div>
       )}
