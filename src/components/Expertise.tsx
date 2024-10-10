@@ -9,7 +9,7 @@ export default function Expertise() {
   
     return (
       <section className="mb-12">
-        <h2 className="text-2xl mb-4">Expertise</h2>
+        <h2 className="text-2xl mb-4 font-bold">Expertise</h2>
         <ul className="list-disc list-inside space-y-2 text-sm md:text-base">
           {skills.map((skill, index) => (
             <li key={index}>{skill}</li>

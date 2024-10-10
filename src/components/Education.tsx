@@ -14,7 +14,7 @@ export default function Education() {
   
     return (
         <section className="mb-12">
-          <h2 className="text-2xl mb-4">Education</h2>
+          <h2 className="text-2xl mb-4 font-bold">Education</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {education.map((edu, index) => (
               <div key={index} className="border-b pb-4">
