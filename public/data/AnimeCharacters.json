@@ -34,6 +34,34 @@
         "show": "Demon Slayer",
         "image": "/animeimages/Rengoku.jpg",
         "description": "Set your heart ablaze. Enough said"
+      },
+      {
+        "id": 6,
+        "name": "Anya Forger",
+        "show": "SpyXFamily",
+        "image": "/animeimages/Anya.jpg",
+        "description": "Mischievous psychic with a strange love for spy shows"
+      },
+      {
+        "id": 7,
+        "name": "Vegeta",
+        "show": "Dragon Ball",
+        "image": "/animeimages/Vegeta.jpg",
+        "description": "The most handsome villian and no points for guessing also a childhood crush"
+      },
+      {
+        "id": 8,
+        "name": "Sakura",
+        "show": "Card Captor Sakura",
+        "image": "/animeimages/Sakura.jpg",
+        "description": "Probably the first anime I ever saw(w/o knowing what anime meant) of this young magician girl who made me believe even I could control the weather and make it rain"
+      },
+      {
+        "id": 9,
+        "name": "Rocklee",
+        "show": "Naruto",
+        "image": "/animeimages/Rocklee.jpg",
+        "description": "The most hard working ninja ever. All workouts to be done for atleast 1000 reps. I will never ever give up"
       }
     ]
   }

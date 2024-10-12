@@ -19,7 +19,7 @@ export default function ContactPage() {
           <Twitter size={24} />
           <span className="sr-only">Twitter DM</span>
         </a>
-        <a href="https://www.linkedin.com/messaging/compose/?to=muskanrajoria23" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-700">
+        <a href="https://www.linkedin.com/messaging/compose/?recipients=muskanrajoria23" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-700">
           <Linkedin size={24} />
           <span className="sr-only">LinkedIn DM</span>
         </a>

@@ -34,7 +34,7 @@ export default function Home() {
       <Education />
       <Expertise />
       <Experiences />
-      <BlogPosts />
+      
     </div>
   )
 }

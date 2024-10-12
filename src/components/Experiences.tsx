@@ -56,16 +56,14 @@ const experiences: Experience[] = [
 
 const ExperienceCard: React.FC<{
   experience: Experience
-  index: number
   isExpanded: boolean
-  onClick: (index: number) => void
-  onMouseEnter: (index: number) => void
-  isMobile: boolean
-}> = React.memo(({ experience, index, isExpanded, onClick, onMouseEnter, isMobile }) => (
+  onHover: () => void
+  onClick: () => void
+}> = React.memo(({ experience, isExpanded, onHover, onClick }) => (
   <div 
     className={`w-36 h-36 border rounded-lg transition-all duration-300 ease-in-out relative cursor-pointer m-2 flex flex-col items-center justify-center ${isExpanded ? 'ring-2 ring-primary' : ''}`}
-    onClick={() => onClick(index)}
-    onMouseEnter={() => !isMobile && onMouseEnter(index)}
+    onMouseEnter={onHover}
+    onClick={onClick}
   >
     <Image 
       src={experience.logo}
@@ -123,7 +121,7 @@ export default function Experiences() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const expandedRef = useRef<HTMLDivElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth < 768)
@@ -134,22 +132,26 @@ export default function Experiences() {
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+      }
     }
   }, [handleResize])
 
-  const handleExpand = useCallback((index: number) => {
-    setExpandedIndex(prevIndex => prevIndex === index ? null : index)
-  }, [])
-
-  const handleMouseEnter = useCallback((index: number) => {
+  const handleHover = useCallback((index: number) => {
     if (!isMobile) {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-      timeoutRef.current = setTimeout(() => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+      }
+      hoverTimeoutRef.current = setTimeout(() => {
         setExpandedIndex(index)
-      }, 200)
+      }, 100)
     }
   }, [isMobile])
+
+  const handleClick = useCallback((index: number) => {
+    setExpandedIndex(prevIndex => prevIndex === index ? null : index)
+  }, [])
 
   const handleClose = useCallback(() => {
     setExpandedIndex(null)
@@ -168,7 +170,7 @@ export default function Experiences() {
 
   return (
     <section className="mb-12 relative">
-      <h2 className="text-2xl mb-4 font-bold">Experience</h2>
+      <h2 className="text-2xl mb-4 font-bold">Experiences</h2>
       <p className="mb-4 text-black-600">
         I have worked at three consumer tech startups including two unicorns. More details in the tiles.
       </p>
@@ -177,11 +179,9 @@ export default function Experiences() {
           <ExperienceCard
             key={index}
             experience={exp}
-            index={index}
             isExpanded={expandedIndex === index}
-            onClick={handleExpand}
-            onMouseEnter={handleMouseEnter}
-            isMobile={isMobile}
+            onHover={() => handleHover(index)}
+            onClick={() => handleClick(index)}
           />
         ))}
       </div>
