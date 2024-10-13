@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import { X } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 const DynamicSpotifySongGrid = dynamic(() => import('@/components/SpotifySongGrid'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <p>Loading music grid...</p>,
   ssr: false
 })
 
@@ -24,6 +24,12 @@ export default function LeisurePage() {
   const [animeCharacters, setAnimeCharacters] = useState<AnimeCharacter[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isMusicLoading, setIsMusicLoading] = useState(true)
+
+  useEffect(() => {
+    setActiveSection('anime')
+    setSelectedCharacter(null)
+  }, [])
 
   useEffect(() => {
     async function loadAnimeCharacters() {
@@ -45,32 +51,23 @@ export default function LeisurePage() {
     loadAnimeCharacters()
   }, [])
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.onerror = null;
     target.src = '/placeholder.svg';
-  };
+  }, []);
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Leisure</h1>
-      
-      <div className="flex justify-center mb-8">
-        <button
-          className={`mx-2 px-4 py-2 rounded-full ${activeSection === 'anime' ? 'bg-gray-700 text-white' : 'bg-gray-300 text-gray-700'}`}
-          onClick={() => setActiveSection('anime')}
-        >
-          Anime
-        </button>
-        <button
-          className={`mx-2 px-4 py-2 rounded-full ${activeSection === 'music' ? 'bg-gray-700 text-white' : 'bg-gray-300 text-gray-700'}`}
-          onClick={() => setActiveSection('music')}
-        >
-          Music
-        </button>
-      </div>
+  const handleSectionChange = useCallback((section: 'anime' | 'music') => {
+    setActiveSection(section)
+  }, [])
 
-      {activeSection === 'anime' ? (
+  const handleCharacterSelect = useCallback((character: AnimeCharacter) => {
+    setSelectedCharacter(character)
+  }, [])
+
+  const content = useMemo(() => {
+    if (activeSection === 'anime') {
+      return (
         <div>
           <div className="mb-12">
             <p className="mb-4">
@@ -89,7 +86,7 @@ export default function LeisurePage() {
                 <div 
                   key={character.id} 
                   className="flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-300"
-                  onClick={() => setSelectedCharacter(character)}
+                  onClick={() => handleCharacterSelect(character)}
                 >
                   <div className="w-full aspect-square relative mb-2">
                     <Image 
@@ -98,6 +95,9 @@ export default function LeisurePage() {
                       fill
                       style={{ objectFit: 'cover' }}
                       onError={handleImageError}
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL="/placeholder.svg"
                     />
                   </div>
                   <p className="text-center">{character.name}</p>
@@ -106,7 +106,9 @@ export default function LeisurePage() {
             </div>
           )}
         </div>
-      ) : (
+      )
+    } else {
+      return (
         <div>
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Music sounds better with me</h2>
@@ -134,9 +136,33 @@ and when I was vindictive`}
           </div>
 
           <h2 className="text-2xl font-bold mb-6">Forever discovering good music and great album art</h2>
-          <DynamicSpotifySongGrid />
+          {isMusicLoading && <p>Loading music grid...</p>}
+          <DynamicSpotifySongGrid onLoad={() => setIsMusicLoading(false)} />
         </div>
-      )}
+      )
+    }
+  }, [activeSection, animeCharacters, isLoading, error, handleCharacterSelect, handleImageError, isMusicLoading])
+
+  return (
+    <div key={activeSection} className="max-w-6xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Leisure</h1>
+      
+      <div className="flex justify-center mb-8">
+        <button
+          className={`mx-2 px-4 py-2 rounded-full ${activeSection === 'anime' ? 'bg-gray-700 text-white' : 'bg-gray-300 text-gray-700'}`}
+          onClick={() => handleSectionChange('anime')}
+        >
+          Anime
+        </button>
+        <button
+          className={`mx-2 px-4 py-2 rounded-full ${activeSection === 'music' ? 'bg-gray-700 text-white' : 'bg-gray-300 text-gray-700'}`}
+          onClick={() => handleSectionChange('music')}
+        >
+          Music
+        </button>
+      </div>
+
+      {content}
 
       {selectedCharacter && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -154,6 +180,9 @@ and when I was vindictive`}
                 fill
                 style={{ objectFit: 'cover' }}
                 onError={handleImageError}
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL="/placeholder.svg"
               />
             </div>
             <h3 className="text-xl font-bold mb-2">{selectedCharacter.name}</h3>
