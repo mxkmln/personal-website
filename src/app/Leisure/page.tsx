@@ -6,7 +6,7 @@ import { X } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 const DynamicSpotifySongGrid = dynamic(() => import('@/components/SpotifySongGrid'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <p>Loading Spotify tracks...</p>,
   ssr: false
 })
 
@@ -31,12 +31,16 @@ class ErrorBoundary extends React.Component<
     return { hasError: true, error }
   }
 
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error("Uncaught error:", error, errorInfo)
+  }
+
   render() {
     if (this.state.hasError) {
       return (
-        <div role="alert">
-          <p>Something went wrong:</p>
-          <pre style={{ color: 'red' }}>{this.state.error?.message}</pre>
+        <div role="alert" className="text-red-500 p-4 border border-red-500 rounded">
+          <h2 className="text-lg font-bold mb-2">Something went wrong</h2>
+          <p>{this.state.error?.message}</p>
         </div>
       )
     }
@@ -113,14 +117,14 @@ export default function LeisurePage() {
           )}
           {!error && !isLoading && (
             <ErrorBoundary>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {animeCharacters.map((character) => (
                   <div 
                     key={character.id} 
-                    className="flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                    className="flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-300 p-2 rounded-lg"
                     onClick={() => setSelectedCharacter(character)}
                   >
-                    <div className="w-full aspect-square relative mb-2">
+                    <div className="w-full aspect-square relative mb-2 rounded-lg overflow-hidden">
                       <Image 
                         src={character.image}
                         alt={character.name}
@@ -130,7 +134,7 @@ export default function LeisurePage() {
                         priority={character.id <= 6}
                       />
                     </div>
-                    <p className="text-center">{character.name}</p>
+                    <p className="text-center text-sm">{character.name}</p>
                   </div>
                 ))}
               </div>
@@ -165,20 +169,22 @@ and when I was vindictive`}
           </div>
 
           <h2 className="text-2xl font-bold mb-6">Forever discovering good music and great album art</h2>
-          <DynamicSpotifySongGrid />
+          <ErrorBoundary>
+            <DynamicSpotifySongGrid />
+          </ErrorBoundary>
         </div>
       )}
 
       {selectedCharacter && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 max-w-md w-full relative">
+          <div className="bg-white p-6 max-w-md w-full relative rounded-lg">
             <button 
               className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-200 transition-colors duration-200"
               onClick={() => setSelectedCharacter(null)}
             >
               <X size={24} />
             </button>
-            <div className="w-48 h-48 relative mx-auto mb-4">
+            <div className="w-48 h-48 relative mx-auto mb-4 rounded-lg overflow-hidden">
               <Image 
                 src={selectedCharacter.image}
                 alt={selectedCharacter.name}
