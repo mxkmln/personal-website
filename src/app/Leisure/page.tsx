@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { X } from 'lucide-react'
 import dynamic from 'next/dynamic'
@@ -16,6 +16,33 @@ type AnimeCharacter = {
   show: string
   image: string
   description: string
+}
+
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div role="alert">
+          <p>Something went wrong:</p>
+          <pre style={{ color: 'red' }}>{this.state.error?.message}</pre>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
 }
 
 export default function LeisurePage() {
@@ -34,6 +61,7 @@ export default function LeisurePage() {
         }
         const data = await response.json()
         setAnimeCharacters(data.characters)
+        console.log('Fetched characters:', data.characters)
         setIsLoading(false)
       } catch (err) {
         console.error('Error loading anime characters:', err)
@@ -79,31 +107,35 @@ export default function LeisurePage() {
           </div>
 
           <h2 className="text-2xl font-bold mb-6">Fav Characters</h2>
-          {isLoading ? (
-            <p>Loading characters...</p>
-          ) : error ? (
-            <p className="text-red-500">{error}</p>
-          ) : (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
-              {animeCharacters.map((character) => (
-                <div 
-                  key={character.id} 
-                  className="flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-300"
-                  onClick={() => setSelectedCharacter(character)}
-                >
-                  <div className="w-full aspect-square relative mb-2">
-                    <Image 
-                      src={character.image}
-                      alt={character.name}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      onError={handleImageError}
-                    />
+          {error && <p className="text-red-500">Error: {error}</p>}
+          {!error && isLoading && <p>Loading characters...</p>}
+          {!error && !isLoading && animeCharacters.length === 0 && (
+            <p>No characters found. Please check your data file.</p>
+          )}
+          {!error && !isLoading && (
+            <ErrorBoundary>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
+                {animeCharacters.map((character) => (
+                  <div 
+                    key={character.id} 
+                    className="flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                    onClick={() => setSelectedCharacter(character)}
+                  >
+                    <div className="w-full aspect-square relative mb-2">
+                      <Image 
+                        src={character.image}
+                        alt={character.name}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        onError={handleImageError}
+                        priority={character.id <= 6}
+                      />
+                    </div>
+                    <p className="text-center">{character.name}</p>
                   </div>
-                  <p className="text-center">{character.name}</p>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </ErrorBoundary>
           )}
         </div>
       ) : (
