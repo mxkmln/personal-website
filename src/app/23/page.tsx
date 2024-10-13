@@ -1,5 +1,11 @@
+import { Suspense } from 'react'
 import Image from 'next/image'
-import ImageGallery from './ImageGallery'
+import dynamic from 'next/dynamic'
+
+const DynamicImageGallery = dynamic(() => import('./ImageGallery'), {
+  loading: () => <p>Loading gallery...</p>,
+  ssr: false
+})
 
 export const metadata = {
   title: '#23 | Your Name',
@@ -20,7 +26,9 @@ export default function TwentyThreePage() {
       </p>
       
       <div className="mb-16">
-        <ImageGallery />
+        <Suspense fallback={<div>Loading gallery...</div>}>
+          <DynamicImageGallery />
+        </Suspense>
       </div>
       
       <h2 className="text-2xl font-semibold mb-4">Club Ultimate</h2>
@@ -29,33 +37,24 @@ export default function TwentyThreePage() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="relative aspect-[4/3] cursor-pointer overflow-hidden">
-          <Image
-            src="/23/image4.jpg"
-            alt="National Image 1"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-all duration-300 filter grayscale hover:grayscale-0"
-          />
-        </div>
-        <div className="relative aspect-[4/3] cursor-pointer overflow-hidden">
-          <Image
-            src="/23/image5.jpg"
-            alt="National Image 2"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-all duration-300 filter grayscale hover:grayscale-0"
-          />
-        </div>
-        <div className="relative aspect-[4/3] cursor-pointer overflow-hidden">
-          <Image
-            src="/23/image6.jpg"
-            alt="National Image 3"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-all duration-300 filter grayscale hover:grayscale-0"
-          />
-        </div>
+        {[
+          { src: "/23/image4.jpg", alt: "National Image 1" },
+          { src: "/23/image5.jpg", alt: "National Image 2" },
+          { src: "/23/image6.jpg", alt: "National Image 3" },
+        ].map((img, index) => (
+          <div key={index} className="relative aspect-[4/3] cursor-pointer overflow-hidden">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-all duration-300 filter grayscale hover:grayscale-0"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNPvd7POQAAAABJRU5ErkJggg=="
+            />
+          </div>
+        ))}
       </div>
     </div>
   )
