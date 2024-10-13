@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Music } from 'lucide-react'
+import { Music, X } from 'lucide-react'
 
 type Song = {
   id: string
@@ -80,10 +80,10 @@ export default function SpotifySongGrid() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 max-w-md w-full relative">
             <button
-              className="absolute top-2 right-2 text-xl text-gray-600 hover:text-gray-800"
+              className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-200 transition-colors duration-200"
               onClick={() => setSelectedSong(null)}
             >
-              &times;
+              <X size={24} />
             </button>
             <div className="w-full aspect-square relative mb-4">
               <Image

@@ -61,7 +61,6 @@ export default function LeisurePage() {
         }
         const data = await response.json()
         setAnimeCharacters(data.characters)
-        console.log('Fetched characters:', data.characters)
         setIsLoading(false)
       } catch (err) {
         console.error('Error loading anime characters:', err)

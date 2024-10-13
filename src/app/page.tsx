@@ -3,7 +3,6 @@ import Exploration from '../components/Exploration'
 import Education from '../components/Education'
 import Expertise from '../components/Expertise'
 import Experiences from '../components/Experiences'
-import BlogPosts from '../components/BlogPosts'
 import SocialLinks from '../components/sociallinks'
 
 export default function Home() {
