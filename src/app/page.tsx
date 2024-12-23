@@ -23,7 +23,7 @@ export default function Home() {
           <div className="flex-grow md:w-3/4">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">Muskan Rajoria</h1>
             <p className="text-base md:text-lg mb-2">
-              Hi I am Muskan. This is my virtual hangout. I am a curious dabbler smitten by a lot of things, most of which you will find captured somewhere in this site. Entrepreneurship and sports excite me a lot. I am cooking something of my own these days. Do reach out if you are a founder looking to chat. I am a recreational climber and play competitive ultimate frisbee, more on that @ #23. Peace.
+              Hi I am Muskan. This is my virtual hangout. I am a curious dabbler smitten by a lot of things, most of which you will find captured somewhere in this site. Entrepreneurship and sports excite me a lot. I am cooking something of my own these days. Do reach out if you are a founder looking to chat. I am a recreational climber and I play competitive ultimate frisbee, more on that @ #23. Peace.
             </p>
             <SocialLinks />
           </div>
