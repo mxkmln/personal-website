@@ -12,12 +12,12 @@ export default function Home() {
         <div className="flex flex-col md:flex-row items-start">
           <div className="w-full md:w-1/4 mb-4 md:mb-0 md:mr-6">
             <div className="aspect-square w-full relative">
-              //<Image
+              <Image
                src="/images/profile.jpg" 
                fill={true} 
                style={{ objectFit: "cover" }} 
                alt="Profile"
-              />//
+              />
             </div>
           </div>
           <div className="flex-grow md:w-3/4">
