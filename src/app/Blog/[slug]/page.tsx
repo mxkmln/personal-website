@@ -30,7 +30,7 @@ export default async function BlogPost({ params }: PostProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="w-full max-w-6xl mx-auto px-4 py-8"> {/* Adjusted width for wider layout */}
       <Link href="/Blog" className="text-blue-500 hover:underline mb-4 inline-block">
         &larr; Back to Blog
       </Link>
