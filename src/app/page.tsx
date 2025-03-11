@@ -13,10 +13,10 @@ export default function Home() {
           <div className="w-full md:w-1/4 mb-4 md:mb-0 md:mr-6">
             <div className="aspect-square w-full relative">
               <Image
-               src="/images/profile.jpg" 
+               src="/profile.jpeg" 
                fill={true} 
                style={{ objectFit: "cover" }} 
-               alt="Profile"
+               alt="profile"
               />
             </div>
           </div>
