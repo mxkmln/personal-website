@@ -106,7 +106,7 @@ export default function LeisurePage() {
     <div>
       <div className="mb-12">
         <p className="mb-4">
-          Anime is a significant source of inspiration and entertainment. Drawn to compelling visual aesthetic and cathartic storylines. Their stories of overcoming obstacles and growing stronger have been a constant reminder that with hard work and dedication, I can achieve my goals.
+          Anime is a significant source of inspiration and entertainment. Drawn to compelling visual aesthetic and cathartic storylines.
         </p>
       </div>
 
