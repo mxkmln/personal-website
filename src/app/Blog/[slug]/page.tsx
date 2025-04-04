@@ -1,11 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { remark } from 'remark'
-import html from 'remark-html'
-import remarkBreaks from 'remark-breaks'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 
 interface PostProps {
   params: {
@@ -37,10 +35,9 @@ export default async function BlogPost({ params }: PostProps) {
       </Link>
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <p className="text-gray-600 mb-4">{post.date}</p>
-      <article
-        className="prose lg:prose-xl"
-        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-      />
+      <article className="prose lg:prose-xl">
+        <ReactMarkdown>{post.content}</ReactMarkdown>
+      </article>
     </div>
   )
 }
@@ -56,17 +53,10 @@ async function getPostData(slug: string) {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
-  const processedContent = await remark()
-    .use(remarkBreaks)
-    .use(html)
-    .process(content)
-
-  const contentHtml = processedContent.toString()
-
   return {
     slug,
     title: data.title,
     date: data.date,
-    contentHtml,
+    content,
   }
 }
