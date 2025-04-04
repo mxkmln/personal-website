@@ -4,6 +4,7 @@ import matter from 'gray-matter'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
 
 interface PostProps {
   params: {
@@ -36,7 +37,9 @@ export default async function BlogPost({ params }: PostProps) {
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <p className="text-gray-600 mb-4">{post.date}</p>
       <article className="prose lg:prose-xl">
-        <ReactMarkdown>{post.content}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkBreaks]}>
+          {post.content}
+        </ReactMarkdown>
       </article>
     </div>
   )
