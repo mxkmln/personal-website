@@ -1,6 +1,6 @@
 ---
 title: "31 year old me would beat 21 year old me at everything"
-date: "2025-04-03"
+date: "2024-11-11"
 excerpt: "reflections from 10 years of regularly working out, serendipitously or so"
 ---
 
