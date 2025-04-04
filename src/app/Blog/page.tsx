@@ -16,7 +16,7 @@ export default function BlogPage() {
   const sortedYears = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8"> {/* Set full width and increased max-width */}
+    <div> {/* No layout props here; root layout handles it */}
       <h1 className="text-4xl font-bold mb-8">Blog</h1>
       {sortedYears.map((year) => (
         <div key={year} className="mb-8">

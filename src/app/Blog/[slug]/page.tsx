@@ -30,13 +30,13 @@ export default async function BlogPost({ params }: PostProps) {
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8">
+    <div> {/* Let layout.tsx handle width, padding, margins */}
       <Link href="/Blog" className="text-blue-500 hover:underline mb-4 inline-block">
         &larr; Back to Blog
       </Link>
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <p className="text-gray-600 mb-4">{post.date}</p>
-      <article className="prose lg:prose-xl prose-p:whitespace-pre-wrap">
+      <article className="prose lg:prose-xl max-w-none prose-p:whitespace-pre-wrap">
         <ReactMarkdown rehypePlugins={[rehypeRaw]}>
           {post.content}
         </ReactMarkdown>
